@@ -1,0 +1,101 @@
+---
+title: 'Lab #1 Activities'
+author: Adejare Taiwo
+output: pdf_document
+---
+
+The R code we have covered in class is available on the lecture section UM Learn page, under \textbf{Content} $>$ \textbf{Course Material}.
+
+**Question 1:**
+
+(a) In R, create a vector (call the vector \textbf{x}) of the five values 2, 5, 1, 4 and 7. Use R's built-in function \texttt{mean()} to find the mean of these five values. (We say we are \textit{passing in} the \textbf{x} vector to the \texttt{mean} function.)
+
+```{r}
+x = c(2, 5, 1, 4, 7)
+mean(x);
+```
+
+(b) Suppose we have surveyed four respondents to collect their responses on some variable of interest. Only three of them reply, so we have a missing value for the fourth person. Missing values are coded as NA in R. We can create the vector of responses: \texttt{y = c(2,5,1,NA)}. What does R tell you is the mean of this vector \textbf{y}?
+
+```{r}
+y = c(2, 5, 1, NA)
+mean(y)
+```
+
+(c) We can find the mean of the non-missing values for the vector in part (b) using extra options to R's \texttt{mean} function. The extra options are called \textbf{arguments}. To see what arguments are available for a function, we need to access the help documentation. In the R console, type \texttt{?mean} or \texttt{help(mean)} and press enter (or return). The documentation will open up in the bottom right corner of RStudio. Write the R code that will compute the mean of \textbf{y}, omitting missing values, using the proper argument to the \texttt{mean} function.
+
+```{r}
+y = c(2, 5, 1, NA)
+mean(y, na.rm = TRUE)
+```
+
+Notice that typing \texttt{mean(0.75,0.25)} in R will not return 0.5 (the mean of 0.75 and 0.25). That is because R is interpreting only the value 0.75 as belonging to the data set of values of which you want the mean. It is interpreting 0.25 as the value of the \textbf{trim} argument that is shown in the help documentation (we will not be working with the \textbf{trim} argument). In order to get the mean of 0.75 and 0.25, the proper code is \texttt{mean(c(0.75,0.25))} or we must store 0.75 and 0.25 in a vector and then find the mean of that vector, as we did in part (a).
+
+**Question 2:**
+
+(a) There are two datasets built-in to R named \textbf{state.area} and \textbf{state.name} referring to the 50 U.S. states. Type these names at the R console to see the data they contain. The datasets are linked, so, for example, the first component of \textbf{state.area} (which is the value 51609) gives you the area in square miles of the first state in \textbf{state.name} (which is Alabama).
+
+Observing the output of \textbf{state.name}, we see that California is the 5th state. Therefore, we can access California's area (in square miles) by accessing the 5th component of \textbf{state.area}:
+
+```{r}
+state.area[5]
+```
+
+Write the R code that obtains the area in square miles of Nevada.
+
+```{r}
+state.area[28]
+```
+
+(b) A third related dataset is named \textbf{state.region}, for which the order of the components also corresponds to the order in \textbf{state.name}. Write the R code that obtains the region of the U.S. that the state of Iowa is in, based on this dataset. (When you extract the appropriate region, you may also get a list of all regions, which is okay.)
+
+```{r}
+state.region[15]
+```
+
+(c) A fourth related dataset is named \textbf{state.x77}. Type \texttt{state.x77} at the R console to see the data. The data is longer, so you can scroll back up to see the beginning of the data. This data is stored in a matrix. We will extract the per capita incomes (data is from the year 1974) from this dataset with the following code. We are extracting the second column of \textbf{state.x77}, where the incomes reside. (The state names are not in any column; rather, they are the names of the rows.)
+
+```{r}
+incomes = state.x77[,2]
+```
+
+Create a histogram of the \texttt{incomes} object. Type \texttt{?hist} at the console to see arguments that can be added to the \texttt{hist()} function to enhance your histogram. Add at least one enhancement (change the title of the histogram, an axis label, or the colour of the bars).
+
+```{r}
+?hist
+hist(incomes, col = "blue", main = "Per Capital Income from year 1974", xlab = "Capital Income")
+```
+
+**Question 3:**
+
+(a) Create a vector in R with 7 components: three TRUEs and four FALSEs. (The order of the TRUEs and FALSEs does not matter). Pass in this vector to the \texttt{sum()} function and report the output.
+
+```{r}
+vt = c(TRUE, TRUE, TRUE, FALSE, FALSE, FALSE)
+sum(vt);
+```
+
+(b) Create a vector in R with 5 components: two TRUEs and three FALSEs. (The order of the TRUEs and FALSEs does not matter). Pass in this vector to the \texttt{sum()} function and report the output.
+
+```{r}
+vt1 = c(TRUE, TRUE, FALSE, FALSE, FALSE)
+sum(vt1)
+```
+
+(c) Create a vector in R with 3 components: one TRUE and two FALSEs. (The order of the TRUEs and FALSEs does not matter). Pass in this vector to the \texttt{sum()} function and report the output.
+
+```{r}
+vt2 = c(TRUE, FALSE, FALSE)
+sum(vt2)
+```
+
+(d) Create a vector in R with 4 components: zero TRUEs and all four FALSEs. Pass in this vector to the \texttt{sum()} function and report the output.
+
+```{r}
+vt3 = c(FALSE, FALSE, FALSE, FALSE)
+sum(vt3)
+```
+
+(e)  Based on these results, what does it seem the \texttt{sum()} function is doing when it is given a vector of TRUEs and FALSEs?
+
+*Base on the above result i see that sum adds up all the true values and return the result omitting the false object.*
