@@ -1,0 +1,90 @@
+---
+title: 'Lab #4 Activities'
+author: Adejare Taiwo
+output: pdf_document
+---
+
+A reminder that the R code we have covered in class is available on the lecture section UM Learn page, under **Content** > **Course Material**.
+
+Knit this file to pdf to see the questions in a more readable format.
+
+**Question 1:**
+
+The `mtcars` dataset is built-in to R.
+
+(a) Create a new data frame, and then **print it**, consisting of all columns of `mtcars`, plus an additional column called `mpg_cat` consisting of "low", "medium low", "medium high", or "high" for each car, depending on if the miles per gallon is:
+
+* less than 15: "low"
+* in the range [15,20): "med low"
+* in the range [20,30): "med hi"
+* at least 30: "high"
+
+```{r}
+mtcars$mpg_cat = ifelse(mtcars$mpg < 15, "low", ifelse(mtcars$mpg < 20, "med low", ifelse(mtcars$mpg < 30, "med hi", "high")))
+print(mtcars)
+```
+
+(b) Create an R list with three components:
+
+* the miles per gallon measurements for all cars with weights below 3000 lbs (only the mpg measurements, no other columns)
+* the miles per gallon measurements for all cars with weights between between 3000 and 5000 lbs
+* the miles per gallon measurements for all cars with weights above 5000 lbs
+
+and **print the list**. Note the `wt` column gives weights in 1000 lbs.
+
+(There are no cars exactly on the boundaries between categories.)
+
+Then use the `sapply()` function to obtain the mean miles per gallon for cars in each of these three weight categories.
+
+```{r}
+lightCarsMpg = mtcars$mpg[mtcars$wt < 3];
+mediumCarsMpg = mtcars$mpg[mtcars$wt >= 3 & mtcars$wt < 5]
+heavyCarsMpg = mtcars$mpg[mtcars$wt >= 5]
+
+mpgList = list(
+  lightCarsMpg = lightCarsMpg,
+  mediumCarsMpg = mediumCarsMpg,
+  heavyCarsMpg = heavyCarsMpg
+)
+
+print(mpgList)
+
+meanMpg = sapply(mpgList, mean)
+print(meanMpg)
+```
+
+(c) Make a bar chart showing the number of cars in the dataset that are 4-cylinder, 6-cylinder, or 8-cylinder.
+
+```{r}
+cylinderCount = table(mtcars$cyl);
+
+barplot(cylinderCount,
+  main = "No. of Cars by Cylinder Type",
+  xlab = "No. of cylinders",
+  ylab = "No. of cars"
+)
+
+```
+
+
+**Question 2:**
+
+Consider the below vector `rolls`, where we simulate 100 rolls of two six-sided dice, where each die has the numbers (1,2,3,4,5,6). The values in the vector are the sum of the two dice (the possible sums are 2, 3, ..., 11, 12) for these 100 rolls.
+
+```{r}
+myseed = 2
+set.seed(myseed)
+rolls = sample(2:12,100,replace=TRUE,prob=c(1,2,3,4,5,6,5,4,3,2,1)/36)
+rolls
+```
+
+We can see that a 12 (obtained from two sixes) occurs for the first time on roll #29. Write the R code that takes in the `rolls` vector and uses a `while()` loop to determine when the first 12 has occurred. When the `while()` loop stops running, a variable should contain the value 29 after iteratively going through the `rolls` vector. Print the variable to show that it contains 29.
+
+```{r}
+count = 1;
+while(rolls[count] != 12) {
+  count = count + 1
+}
+
+print(count)
+```

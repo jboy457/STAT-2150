@@ -1,0 +1,67 @@
+---
+title: 'Lab #3 Activities'
+author: Adejare Taiwo
+output: pdf_document
+---
+
+A reminder that the R code we have covered in class is available on the lecture section UM Learn page, under **Content** > **Course Material**.
+
+Knit this file to pdf to see the questions in a more readable format.
+
+**Question 1:**
+
+The histogram below shows that there are 7 cars in the `mtcars` dataset with an engine displacement higher than 350 (the 350-400 bar excludes 350).
+
+```{r}
+hist(mtcars$disp)
+grid()
+```
+
+Print the `mtcars` data frame subsetted, showing only these 7 cars in increasing order of engine displacement.
+
+```{r}
+cars = mtcars[mtcars$disp > 350,]
+orderedCars = cars[order(cars$disp), ]
+
+print(orderedCars)
+```
+
+
+**Question 2:**
+
+The following is a complicated-looking expression involving natural logs and exponentials:
+
+\[
+e^{\ln (4^2)} + \ln (e^{3 \ln(4)}) - \dfrac{e^{\ln (4^3)}}{4}
+\]
+
+(In this expression, ln(4^2), 3 ln(4), and ln(4^3) are in the exponents.)
+
+However, if we know our properties of logarithms and exponentials, we can show that the expression simplifies to `3*ln(4)`, which is approximately 4.16. Suppose you do not know the properties of logarithms and exponentials, so you code the complicated-looking expression and see what it equals. Write the R code for the complicated expression so that when you knit to pdf, you see that it simplifies to approximately 4.16.
+
+```{r}
+solution = exp(log( 4 ^ 2)) + log(exp(3 * log(4))) - (exp(log(4 ^ 3)) / 4)
+print(solution)
+```
+
+
+**Question 3:**
+
+The volume of a hollow cylinder, as shown at the link provided in Crowdmark, is $V = \pi (R^2 - r^2) h$, where $R$ is the outer radius, $r$ is the inner radius, and $h$ is the height. Of course, this is because we first find the volume of the whole cylinder ($V = \pi R^2 h$) and then remove the volume of the hollow part ($V = \pi r^2 h$).
+
+Write an R function that calculates the volume of a cylinder. We will call this function twice, once with the larger radius and once with the smaller radius, to find the volume of a hollow cylinder. Your function should have two inputs: the radius of the cylinder and the height. The R code for the number $\pi$ is simply **pi**:
+
+```{r}
+calcVol = function (height, radius) {
+  volume = pi * (radius ^ 2) * height
+  return (volume)
+}
+
+```
+
+Once your function is written, use it to calculate the volume of a hollow cylinder (in cubic centimetres) with a height of 16 cm, an inner radius of 3 cm and an outer radius of 6 cm.
+
+```{r}
+calcCylinder = calcVol(16, 6) - calcVol(16, 3)
+print(calcCylinder)
+```
